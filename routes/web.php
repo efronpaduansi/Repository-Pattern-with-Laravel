@@ -15,3 +15,6 @@ use App\Http\Controllers\CustomerController;
 
 Route::get('/', [CustomerController::class, 'get_data']);
 Route::post('/', [CustomerController::class, 'save_data'])->name('customer.save');
+Route::put('/update/{id}', [CustomerController::class, 'update_data'])->name('customer.update');
+Route::delete('/destroy/{id}', [CustomerController::class, 'delete_data'])->name('customer.destroy');
+

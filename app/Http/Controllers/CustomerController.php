@@ -31,4 +31,16 @@ class CustomerController extends Controller
             'message' => 'Data berhasil disimpan'
         ]);
     }
+
+    public function update_data(Request $request, $id)
+    {
+        $customers = $this->customer->update($request, $id);
+        return redirect()->back();
+    }
+
+    public function delete_data($id)
+    {
+        $customers = $this->customer->destroy($id);
+        return redirect()->back();
+    }
 }

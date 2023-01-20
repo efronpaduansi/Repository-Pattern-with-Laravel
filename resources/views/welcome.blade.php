@@ -14,8 +14,8 @@
     <div class="container-fluid">
         <h3 class="text-center text-success my-5">Implementasi Repository Pattern pada Laravel8</h3>
         <div class="row">
-            <div class="col-md-8">
-                <table class="table table-bordered table hover">
+            <div class="col-8 col-md-8 col-sm-8">
+                <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -23,6 +23,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Address</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +34,53 @@
                             <td>{{ $cs->email }}</td>
                             <td>{{ $cs->phone }}</td>
                             <td>{{ $cs->address }}</td>
+                            <td>
+                                <a href="#" data-toggle="modal" data-target="#editModal{{ $cs->id }}" class="btn btn-sm btn-warning">Edit</a>
+                                <!-- Modal -->
+                                <div class="modal fade" id="editModal{{ $cs->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit Data Customer</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('customer.update', $cs->id) }}" method="POST">
+                                                @csrf
+                                                @method('put')
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" class="form-control" id="name" name="name" value="{{ $cs->name }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" class="form-control" id="email" name="email" value="{{ $cs->email }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="number" class="form-control" id="phone" name="phone" value="{{ $cs->phone }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="address">Address</label>
+                                                    <input type="text" class="form-control" id="address" name="address" value="{{ $cs->address }}">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="Submit" class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <form action="{{ route('customer.destroy', $cs->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin menghapus data ini?')">Hapus</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
